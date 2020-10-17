@@ -49,7 +49,3 @@ class Board {
     }
 
 }
-
-var b = new Board();
-b.draw_board();
- 

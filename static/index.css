@@ -3,14 +3,12 @@ body {
     color: white;
 }
 #title {
-    margin: 0;
-    position: absolute;
-    top: 5%;
-    left: 50%;
-    margin-right: -50%;
-    transform: translate(-50%, -50%) 
+    text-align: center;
+
 }
 #chessBoard {
+    
+
     margin: 0;
     position: absolute;
     top: 40%;
