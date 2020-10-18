@@ -9,15 +9,15 @@ body {
 #chessBoard {
     margin: auto;
     position: absolute;
-    top: 40%;
+    top: 370px;
     left: 50%;
     margin-right: -50%;
     transform: translate(-50%, -50%);
-    box-shadow: 0 0 60px 2px #0026ff, 0.5rem 0.5rem 30px #13092d;
+    box-shadow: 0 0 80px 15px #0026ff, 0.5rem 0.5rem 30px #13092d;
 }
 .square{
     width: 60px;
     height: 60px;
     display: inline-block;
-    margin: 0px;
   }
+

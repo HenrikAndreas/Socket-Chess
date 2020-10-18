@@ -41,7 +41,7 @@ class Board {
             var row = document.createElement('div');
             row.className = "row";        
             for (var j = 0; j < this.columns; j++) {
-                var square = this.tiles[i][j].create();
+                var square = this.tiles[i][j].get_square(); 
 
                 row.appendChild(square);
             }
