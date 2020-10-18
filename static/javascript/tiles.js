@@ -1,5 +1,6 @@
 class Tile {
     constructor(color, x, y) {
+        this.initiated = false; // Logic since eventlistener will execute automatically first time
         this.color = color;
         this.xCor = x;
         this.yCor = y;
@@ -17,21 +18,20 @@ class Tile {
         var cors = this.cors;
         square.className = 'square';
         square.style.backgroundColor = this.color;
-        // square.addEventListener("click", function() {
-        //     console.log(cors);
-        // });
+        square.addEventListener("click", function() {
+            console.log(cors);
+        });
         return square;
     }
 
-    add_piece(piece) {
-        this.piece = piece;
-        this.square.style.backgroundColor = "red";
+    add_piece() {
+        // this.piece = piece;
         // InnerHTML / Add picture
     }
 
-    is_occupied() {
-        return (this.piece != null) ? true : false;
-    }
+    // is_occupied() {
+    //     return (this.piece != null) ? true : false;
+    // }
     
 
 }

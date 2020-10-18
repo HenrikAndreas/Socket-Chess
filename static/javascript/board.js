@@ -17,7 +17,7 @@ class Board {
 
         for (var i = 0; i < this.rows; i++) {
             reverse = reverse ? false : true;
-            this.tiles.push([])
+            this.tiles.push([]);
             for (var j = 0; j < this.columns; j++) {
                 // Coordinates
                 var x = this.x[j];
@@ -42,7 +42,6 @@ class Board {
             row.className = "row";        
             for (var j = 0; j < this.columns; j++) {
                 var square = this.tiles[i][j].get_square(); 
-
                 row.appendChild(square);
             }
             board.appendChild(row);
