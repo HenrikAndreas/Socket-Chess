@@ -1,16 +1,14 @@
-var joe = new Board();
-joe.draw_board();
+var board = new Board();
+board.draw_board();
 
 // for (var i = 0; i < 8; i++) {
 //     for (var j = 0; j < 8; j++) {
-  
-//         joe.tiles[i][j].square.addEventListener("click", function() {
-//             add_piece(joe.tiles[x][y]);
-//         });   
+//         board.tiles[i][j].square.onclick = function() {
+//             selectTile();
+//         }
 //     }
 // }
 
-// function add_piece(tile) {
-//     tile.add_piece();
-
+// function selectTile() {
+    
 // }
