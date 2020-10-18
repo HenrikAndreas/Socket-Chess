@@ -7,13 +7,12 @@ body {
 
 }
 #chessBoard {
-    margin: 0;
+    margin: auto;
     position: absolute;
     top: 40%;
     left: 50%;
     margin-right: -50%;
     transform: translate(-50%, -50%);
-    /* box-shadow: 0 0 10px 10px #0026ff; */
     box-shadow: 0 0 60px 2px #0026ff, 0.5rem 0.5rem 30px #13092d;
 }
 .square{

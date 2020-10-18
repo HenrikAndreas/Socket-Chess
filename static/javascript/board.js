@@ -19,8 +19,9 @@ class Board {
             reverse = reverse ? false : true;
             this.tiles.push([])
             for (var j = 0; j < this.columns; j++) {
-                var x = this.x[i];
-                var y = this.y[j];
+                // Coordinates
+                var x = this.x[j];
+                var y = this.y[i];
                 if(!reverse) {
                     var color = change ? 'black' : 'white';
                     this.tiles[i].push(new Tile(color, x, y));
@@ -35,8 +36,8 @@ class Board {
 
     draw_board() {
         let board = document.getElementById("chessBoard");
-
-        for (var i = 0; i < this.rows; i++) {
+        // For white player:
+        for (var i = this.rows-1; i >= 0; i--) {
             var row = document.createElement('div');
             row.className = "row";        
             for (var j = 0; j < this.columns; j++) {
@@ -46,6 +47,9 @@ class Board {
             }
             board.appendChild(row);
         }
+        // For black player:
+        // for (var i = 0; i < this.rows; i++)
+
     }
 
 }
