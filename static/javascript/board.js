@@ -38,7 +38,11 @@ class Board {
 
     move(tiles) {
         console.log("From " + tiles[0].cors + " to " + tiles[1].cors);
+        tiles[1].add_piece(tiles[0].get_piece());
+        tiles[1].get_piece().set_cors(tiles[1].a_cors);
+        tiles[0].remove_piece();
     }
+
     update_color() {
         for (var i = 0; i < this.rows; i++) {
             for (var j = 0; j < this.columns; j++) {
@@ -48,6 +52,7 @@ class Board {
                 } else {
                     tile.square.style.backgroundColor = tile.color;
                 }
+                
             }
         }
     }
@@ -91,10 +96,10 @@ class Board {
                 var y = this.y[i];
                 if(!reverse) {
                     var color = change ? 'black' : 'white';
-                    this.tiles[i].push(new Tile(this, color, x, y));
+                    this.tiles[i].push(new Tile(this, color, x, y, [i, j]));
                 } else {
                     var color = change ? 'white' : 'black';
-                    this.tiles[i].push(new Tile(this, color, x, y));
+                    this.tiles[i].push(new Tile(this, color, x, y, [i, j]));
                 }
                 change = change ? false : true;
             }
@@ -118,9 +123,17 @@ class Board {
             }
             board.appendChild(row);
         }
+        
         // For black player:
-        // for (var i = 0; i < this.rows; i++)
-
+        // for (var i = 0; i < this.rows; i++) {
+        //     var row = document.createElement('div');
+        //     row.className = "row";        
+        //     for (var j = this.columns-1; j >= 0; j--) {
+        //         var square = this.tiles[i][j].get_square(); 
+        //         row.appendChild(square);
+        //     }
+        //     board.appendChild(row);
+        // }
     }
 
 }

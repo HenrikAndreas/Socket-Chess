@@ -1,5 +1,7 @@
 class Tile {
-    constructor(board, color, x, y) {
+    constructor(board, color, x, y, actual_cors) {
+        this.original_color = color;
+        this.a_cors = actual_cors;
         this.board = board;
         this.color = color;
         this.xCor = x;
@@ -8,6 +10,7 @@ class Tile {
         this.square = this.create();
         this.selected = false;
         this.piece = null;
+        this.picture = null;
 
     }
 
@@ -67,14 +70,16 @@ class Tile {
     }
     add_piece(piece) {
 
-        var color = piece.color;
-        this.square.style.backgroundColor = color;
+
         this.piece = piece;
-        // this.piece = piece;
-        // InnerHTML / Add picture
+        this.picture = piece.picture;
+        this.square.style.backgroundImage = "url("+this.picture +")";
+
     }
     remove_piece() {
         this.piece = null;
+        this.picture = null;
+        this.square.style.backgroundImage = this.picture;
     }
     get_piece() {
         return this.piece;
