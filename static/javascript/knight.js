@@ -1,9 +1,9 @@
 class Knight {
-    constructor(board, x, y) {
+    constructor(board, x, y, color) {
         this.board = board;
         this.y = y;
         this.x = x;
-        this.color = 'green';
+        this.color = color;
         this.name = 'knight';
         this.picture = 'https://github.com/patosai/chess/blob/master/Sprites/whiteKnight.png?raw=true'
 

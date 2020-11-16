@@ -1,5 +1,3 @@
-// Idea --> Make square objects > put in list > draw
-// If white is playing --> Reverse drawing order so that player always is at bottom
 class Board {
     constructor() {
         this.rows = 8;
@@ -17,7 +15,8 @@ class Board {
     }
 
     initialize_pieces() {
-        var pieces = [new Knight(this, 3, 3)];
+        // Once for white and once for black
+        var pieces = [new Knight(this, 0, 1, 'white')];
 
         for (var i = 0; i < pieces.length; i++) {
             pieces[i].add_piece_to_board();
@@ -48,7 +47,7 @@ class Board {
             for (var j = 0; j < this.columns; j++) {
                 var tile = this.tiles[i][j];
                 if ( (tile == this.selectedTiles[0]) ) {
-                    tile.square.style.backgroundColor = "red";
+                    tile.square.style.backgroundColor = "#021174";
                 } else {
                     tile.square.style.backgroundColor = tile.color;
                 }
@@ -60,7 +59,7 @@ class Board {
     draw_moves(moves_list) {    // List of x,y coordinates that are possible
         for (var i = 0; i < moves_list.length; i++) {
             var cors = moves_list[i];
-            this.tiles[cors[0]][cors[1]].color = "blue";
+            this.tiles[cors[0]][cors[1]].color = "#021174";
         }
     }
     reset_draw_moves() {
