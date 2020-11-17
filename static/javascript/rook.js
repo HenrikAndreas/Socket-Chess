@@ -23,28 +23,48 @@ class Rook {
     get_moves() {
         var moves = [];
         for (var i = this.x+1; i < this.board.rows; i++) {
-            moves.push([i, this.y]);
             if (this.board.tiles[i][this.y].is_occupied()) {
-                break;  
+                if (this.board.tiles[i][this.y].piece.color == this.board.player.color) {
+                    break;
+                } else {
+                    moves.push([i, this.y]);
+                    break;  
+                }
             }
+            moves.push([i, this.y]);
         }
         for (var j = this.x - 1; j >= 0; j--) {
-            moves.push([j, this.y]);
             if (this.board.tiles[j][this.y].is_occupied()) {
-                break;  
+                if (this.board.tiles[j][this.y].piece.color == this.board.player.color) {
+                    break;
+                } else {
+                    moves.push([j, this.y]);
+                    break;  
+                }
             }
+            moves.push([j, this.y]);
         }
         for (var k = this.y - 1; k >= 0; k--) {
-            moves.push([this.x, k]);
             if (this.board.tiles[this.x][k].is_occupied()) {
-                break;  
+                if (this.board.tiles[this.x][k].piece.color == this.board.player.color) {
+                    break;
+                } else {
+                    moves.push([this.x, k]);
+                    break;
+                }
             }
+            moves.push([this.x, k]);
         }
         for (var l = this.y + 1; l < this.board.columns; l++) {
-            moves.push([this.x, l]);
             if (this.board.tiles[this.x][l].is_occupied()) {
-                break;  
+                if (this.board.tiles[this.x][l].piece.color == this.board.player.color) {
+                    break;
+                } else {
+                    moves.push([this.x, l]);
+                    break;  
+                }
             }
+            moves.push([this.x, l]);
         }
 
         return moves;

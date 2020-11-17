@@ -1,14 +1,14 @@
-class Rook {
+class Bishop {
     constructor(board, x, y, color) {
         this.board = board;
         this.y = y;
         this.x = x;
         this.color = color;
-        this.name = 'rook';
+        this.name = 'bishop';
         if (this.color == 'white') {
-            this.picture = 'https://raw.githubusercontent.com/patosai/chess/master/Sprites/whiteRook.png';
+            this.picture = 'https://raw.githubusercontent.com/patosai/chess/master/Sprites/whiteBishop.png';
         } else {
-            this.picture = 'https://raw.githubusercontent.com/patosai/chess/master/Sprites/blackRook.png';
+            this.picture = 'https://raw.githubusercontent.com/patosai/chess/master/Sprites/blackBishop.png';
         }
     }
 
@@ -22,6 +22,71 @@ class Rook {
 
     get_moves() {
         var moves = [];
+        console.log(this.y, this.x)
+     
+        var i = this.y + 1;
+        var j = this.x + 1;
+        console.log([i, j])
+        while ((i < this.board.rows) && (j < this.board.columns)) {
+            if (this.board.tiles[j][i].is_occupied()) {
+                if (this.board.tiles[j][i].piece.color == this.board.player.color) {
+                    break;
+                } else {
+                    moves.push([j, i]);
+                    break;
+                }
+            }
+            moves.push([j, i]);
+            i++; j++;
+        }
+        
+        var i = this.y - 1;
+        var j = this.x - 1;
+        while ((i >= 0) && (j >= 0)) {
+            if (this.board.tiles[j][i].is_occupied()) {
+                if (this.board.tiles[j][i].piece.color == this.board.player.color) {
+                    break;
+                } else {
+                    moves.push([j, i]);
+                    break;
+                }
+            }
+            moves.push([j, i]);
+            i--; j--;
+        }
+        
+        var i = this.y + 1;
+        var j = this.x - 1;
+        while ((i < this.board.rows) && (j >= 0)) {
+            if (this.board.tiles[j][i].is_occupied()) {
+                if (this.board.tiles[j][i].piece.color == this.board.player.color) {
+                    break;
+                } else {
+                    moves.push([j, i]);
+                    break;
+                }
+            }
+            moves.push([j, i]);
+            i++; j--;
+        }
+
+        var i = this.y - 1;
+        var j = this.x + 1;
+        while((i >= 0) && (j < this.board.columns)) {
+            if (this.board.tiles[j][i].is_occupied()) {
+                if (this.board.tiles[j][i].piece.color == this.board.player.color) {
+                    break;
+                } else {
+                    moves.push([j, i]);
+                    break;
+                }
+            }
+            moves.push([j, i]);
+
+            i--; j++;
+        }
+
+    
 
         return moves;
     }

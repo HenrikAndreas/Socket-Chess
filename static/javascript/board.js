@@ -19,10 +19,14 @@ class Board {
 
     initialize_pieces() {
         // Once for white and once for black
-        var pieces = [new Knight(this, 0, 1, 'white'), new Knight(this,0,6,'white')];
-        pieces.push(new Knight(this, 7, 6, 'black'));
-        pieces.push(new Rook(this, 0, 0, 'white'));
-        pieces.push(new Rook(this, 0, 7, 'white'));
+        var pieces = [
+            new Knight(this, 0, 1, 'white'), new Knight(this, 0, 6, 'white'), new Rook(this, 0, 7, 'white'), new Rook(this, 0, 0, 'white'),
+            new Bishop(this, 0, 2, 'white'), new Bishop(this, 0, 5, 'white'), 
+            new Knight(this, 7, 1, 'black'), new Knight(this, 7, 6, 'black'), new Rook(this, 7, 7, 'black'), new Rook(this, 7, 0, 'black'),
+            new Bishop(this, 7, 2, 'black'), new Bishop(this, 7, 5, 'black')
+        ];
+        
+ 
 
         for (var i = 0; i < pieces.length; i++) {
             pieces[i].add_piece_to_board();
@@ -48,7 +52,6 @@ class Board {
             this.whitePlayer = true;
         } else {
             if (this.blackPlayer) {
-                console.log("occupied");
                 return;
             }
             this.blackPlayer = true;
@@ -109,10 +112,10 @@ class Board {
             reverse = reverse ? false : true;
             for (var j = 0; j < this.columns; j++) {
                 if (!reverse) {
-                    var color = change ? 'black' : 'white';
+                    var color = change ? '#262626' : 'white';
                     this.tiles[i][j].color = color;
                 } else {
-                    var color = change ? 'white' : 'black';
+                    var color = change ? 'white' : '#262626';
 
                     this.tiles[i][j].color = color;
                 }
@@ -133,10 +136,11 @@ class Board {
                 var x = this.x[j];
                 var y = this.y[i];
                 if(!reverse) {
-                    var color = change ? 'black' : 'white';
+                    // CHANGE HERE FOR COLOR 
+                    var color = change ? '#262626' : 'white';
                     this.tiles[i].push(new Tile(this, color, x, y, [i, j]));
                 } else {
-                    var color = change ? 'white' : 'black';
+                    var color = change ? 'white' : '#262626';
                     this.tiles[i].push(new Tile(this, color, x, y, [i, j]));
                 }
                 change = change ? false : true;
