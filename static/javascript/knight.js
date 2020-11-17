@@ -5,7 +5,12 @@ class Knight {
         this.x = x;
         this.color = color;
         this.name = 'knight';
-        this.picture = 'https://github.com/patosai/chess/blob/master/Sprites/whiteKnight.png?raw=true'
+        if (this.color == 'white') {
+            // Lagre egne bilder på github
+            this.picture = 'https://github.com/patosai/chess/blob/master/Sprites/whiteKnight.png?raw=true';
+        } else {
+            this.picture = 'https://raw.githubusercontent.com/patosai/chess/master/Sprites/blackKnight.png';
+        }
 
     }
     add_piece_to_board() {

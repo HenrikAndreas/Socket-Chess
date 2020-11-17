@@ -20,6 +20,11 @@
 
           </div>
 
+          <button onclick="board.set_player('black')">Choose Black</button>
+          <button onclick="board.set_player('white')">Choose White</button>
+
+          <script src="{{ url_for('static', filename='javascript/rook.js') }}"></script>
+          <script src="{{ url_for('static', filename='javascript/player.js') }}"></script>
           <script src="{{ url_for('static', filename='javascript/knight.js') }}"></script>
           <script src="{{ url_for('static', filename='javascript/tiles.js') }}"></script>
           <script src="{{ url_for('static', filename='javascript/board.js') }}"></script>

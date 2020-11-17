@@ -7,19 +7,51 @@ class Board {
         this.tileSize = 10;
         this.tiles = [];
 
+        this.whitePlayer = false;
+        this.blackPlayer = false;
+
         this.selectedTiles = [];
         this.maxSelect = 2;
-
+        this.player = null;
         this.make_squares();
         this.initialize_pieces();
     }
 
     initialize_pieces() {
         // Once for white and once for black
-        var pieces = [new Knight(this, 0, 1, 'white')];
+        var pieces = [new Knight(this, 0, 1, 'white'), new Knight(this,0,6,'white')];
+        pieces.push(new Knight(this, 7, 6, 'black'));
+        pieces.push(new Rook(this, 0, 0, 'white'));
+        pieces.push(new Rook(this, 0, 7, 'white'));
 
         for (var i = 0; i < pieces.length; i++) {
             pieces[i].add_piece_to_board();
+        }
+        
+    }
+    online_set_player(color) {
+        if (color == 'white') {
+            this.whitePlayer = true;
+        } else {
+            this.blackPlayer = true;
+        }
+    }
+    set_player(color) {
+        
+        this.player = new Player(color);
+        socket.emit('set_player', color);
+        if (color == 'white') {
+            if (this.whitePlayer) {
+                console.log("occupied");
+                return;
+            }
+            this.whitePlayer = true;
+        } else {
+            if (this.blackPlayer) {
+                console.log("occupied");
+                return;
+            }
+            this.blackPlayer = true;
         }
     }
     add_selected_tile(tile) {
@@ -36,10 +68,18 @@ class Board {
     }
 
     move(tiles) {
-        console.log("From " + tiles[0].cors + " to " + tiles[1].cors);
+        socket.emit('chess_move', {'from' : tiles[0].a_cors, 'to' : tiles[1].a_cors});
         tiles[1].add_piece(tiles[0].get_piece());
         tiles[1].get_piece().set_cors(tiles[1].a_cors);
         tiles[0].remove_piece();
+    }
+
+    online_move(from, to) {
+        var from_tile = this.tiles[from[0]][from[1]];
+        var to_tile = this.tiles[to[0]][to[1]];
+        to_tile.add_piece(from_tile.get_piece());
+        to_tile.get_piece().set_cors(to_tile.a_cors);
+        from_tile.remove_piece();
     }
 
     update_color() {
@@ -51,7 +91,6 @@ class Board {
                 } else {
                     tile.square.style.backgroundColor = tile.color;
                 }
-                
             }
         }
     }

@@ -1,7 +1,7 @@
 class Tile {
     constructor(board, color, x, y, actual_cors) {
         this.original_color = color;
-        this.a_cors = actual_cors;
+        this.a_cors = actual_cors; // Numeral Coordinates
         this.board = board;
         this.color = color;
         this.xCor = x;
@@ -31,32 +31,64 @@ class Tile {
 
         return square;
     }
-
+    
     select() {
-    // FIX --> if selected tiles is empty, only tiles with piece selectable. If selected tiles has first tile as occupied, then all in range are selectable
+        // FIX --> if selected tiles is empty, only tiles with piece selectable. If selected tiles has first tile as occupied, then all in range are selectable
 
+        if ((this.board.get_selected_tiles().length == 0) && !this.is_occupied()) {
+            return;
+        }
+        if ((this.board.get_selected_tiles().length == 0) && !(board.player.color == this.piece.color)) {
+            return;
+        }
+        
+        this.selected = true;
+        var allow_move = false;
+        var illegal_move = false;
+        
 
-        // console.log(this.xCor, this.yCor);
-        // console.log(this.board.get_selected_tiles());
+        if (this.board.get_selected_tiles().includes(this)) {
+            allow_move = true;
 
+        }
+        // Thanks Joe Bayer
+        if (this.board.get_selected_tiles().length == 1 && this.piece != null && this.piece.color == this.board.get_selected_tiles()[0].piece.color) {
+            illegal_move = true;
+        }
+        
+        if ((this.board.get_selected_tiles().length == 1) && !allow_move && !illegal_move) {
+            var possible_moves = this.board.get_selected_tiles()[0].piece.get_moves();
+            var x = this.a_cors[0];
+            var y = this.a_cors[1];
+
+            for (var i = 0; i < possible_moves.length; i++) {
+                if ((possible_moves[i][0] == x && possible_moves[i][1] == y)) {
+                    allow_move = true;
+                }
+            }
+            
+        }
         this.board.reset_draw_moves();
+        if (!allow_move && this.board.get_selected_tiles().length == 1) {
+            return;
+        }
 
-    // If you choose a tile that is occupied and no tiles have been selected, then that show moves from that pice
-        if ((this.is_occupied()) && (this.board.get_selected_tiles.length == 0)) { 
+        // If you choose a tile that is occupied and no tiles have been selected, then that show moves from that pice
+        if ((this.is_occupied()) && (this.board.get_selected_tiles().length == 0)) { 
            var possible_moves = this.piece.get_moves();
            this.board.draw_moves(possible_moves);
         }
-    // Resets selected tiles if you select an already selected tile
+        // Resets selected tiles if you select an already selected tile
         if (this.board.get_selected_tiles().includes(this)) {
             this.board.reset_draw_moves();
+            this.selected = false;
             this.board.remove_selected_tiles();
         }
-    // Adds tile to list of selected tiles
-        this.selected = (this.selected) ? false : true;
+        // Adds tile to list of selected tiles
         if (this.selected) {
             this.board.add_selected_tile(this);
         }
-    // Clears Selected tiles if it's double selected, or if you have selected more than two tiles
+        // Clears Selected tiles if it's double selected, or if you have selected more than two tiles
         if (this.board.get_selected_tiles().length == this.board.get_maxSelect()) {
             this.board.move(this.board.get_selected_tiles());
             this.board.remove_selected_tiles();
@@ -65,9 +97,8 @@ class Tile {
 
         // Colors selcted tile
         this.board.update_color();
-
-
     }
+
     add_piece(piece) {
 
 
