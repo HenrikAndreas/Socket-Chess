@@ -61,20 +61,27 @@ class Pawn {
         }
 
         if (this.color == 'white') {
-            if (this.board.tiles[this.x+1][this.y+1].is_occupied() && this.board.tiles[this.x+1][this.y+1].piece.color != this.board.player.color ) {
-                moves.push([this.x+1, this.y+1]);
+            if (this.x+1 < this.board.columns && this.y+1 < this.board.rows){
+                if (this.board.tiles[this.x+1][this.y+1].is_occupied() && this.board.tiles[this.x+1][this.y+1].piece.color != this.board.player.color ) {
+                    moves.push([this.x+1, this.y+1]);
+                }    
             }
-    
-            if (this.board.tiles[this.x+1][this.y-1].is_occupied() && this.board.tiles[this.x+1][this.y+1].piece.color != this.board.player.color ) {
-                moves.push([this.x+1, this.y-1]);
+            if (this.x+1 < this.board.columns && this.y-1 >= 0) {
+                if (this.board.tiles[this.x+1][this.y-1].is_occupied() && this.board.tiles[this.x+1][this.y-1].piece.color != this.board.player.color ) {
+                    moves.push([this.x+1, this.y-1]);
+                }
             }
         } else {
-            if (this.board.tiles[this.x-1][this.y-1].is_occupied() && this.board.tiles[this.x-1][this.y-1].piece.color != this.board.player.color ) {
-                moves.push([this.x-1, this.y-1]);
+            if (this.x-1 >= 0 && this.y-1 >= 0) {
+                if (this.board.tiles[this.x-1][this.y-1].is_occupied() && this.board.tiles[this.x-1][this.y-1].piece.color != this.board.player.color ) {
+                    moves.push([this.x-1, this.y-1]);
+                }
             }
-    
-            if (this.board.tiles[this.x-1][this.y+1].is_occupied() && this.board.tiles[this.x-1][this.y+1].piece.color != this.board.player.color ) {
-                moves.push([this.x-1, this.y+1]);
+            
+            if (this.x-1 >= 0 && this.y+1 < this.board.rows) {
+                if (this.board.tiles[this.x-1][this.y+1].is_occupied() && this.board.tiles[this.x-1][this.y+1].piece.color != this.board.player.color ) {
+                    moves.push([this.x-1, this.y+1]);
+                }
             }
         }
 
