@@ -12,6 +12,9 @@ class Rook {
         }
     }
 
+    get_name() {
+        return this.name;
+    }
     add_piece_to_board() {
         this.board.tiles[this.x][this.y].add_piece(this);
     }

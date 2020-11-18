@@ -6,7 +6,7 @@ class Board {
         this.x = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'];
         this.tileSize = 10;
         this.tiles = [];
-
+        this.num_of_players = 0; // Use this as logic for waiting room
         this.whitePlayer = false;
         this.blackPlayer = false;
 
@@ -21,18 +21,21 @@ class Board {
         // Once for white and once for black
         var pieces = [
             new Knight(this, 0, 1, 'white'), new Knight(this, 0, 6, 'white'), new Rook(this, 0, 7, 'white'), new Rook(this, 0, 0, 'white'),
-            new Bishop(this, 0, 2, 'white'), new Bishop(this, 0, 5, 'white'), 
+            new Bishop(this, 0, 2, 'white'), new Bishop(this, 0, 5, 'white'), new Queen(this, 0, 3, 'white'),new King(this, 0, 4, 'white'),
             new Knight(this, 7, 1, 'black'), new Knight(this, 7, 6, 'black'), new Rook(this, 7, 7, 'black'), new Rook(this, 7, 0, 'black'),
-            new Bishop(this, 7, 2, 'black'), new Bishop(this, 7, 5, 'black')
+            new Bishop(this, 7, 2, 'black'), new Bishop(this, 7, 5, 'black'), new Queen(this, 7, 3, 'black'), new King(this, 7, 4, 'black'),    
         ];
-        
- 
 
+        for (var i = 0; i < this.rows; i++) {
+            pieces.push(new Pawn(this, 1, i, 'white'));
+            pieces.push(new Pawn(this, 6, i, 'black'));
+
+        }
         for (var i = 0; i < pieces.length; i++) {
             pieces[i].add_piece_to_board();
         }
-        
     }
+
     online_set_player(color) {
         if (color == 'white') {
             this.whitePlayer = true;
@@ -72,6 +75,9 @@ class Board {
 
     move(tiles) {
         socket.emit('chess_move', {'from' : tiles[0].a_cors, 'to' : tiles[1].a_cors});
+        if (tiles[0].get_piece().get_name() == 'pawn') {
+            tiles[0].get_piece().first_move = false;
+        }
         tiles[1].add_piece(tiles[0].get_piece());
         tiles[1].get_piece().set_cors(tiles[1].a_cors);
         tiles[0].remove_piece();
