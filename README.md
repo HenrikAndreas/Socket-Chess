@@ -7,9 +7,9 @@ News:
 - Function that draws all possible moves for the selected piece
 - Online functionality with Sockets
 - Player based (Black player cannot move white pieces, vice versa)
+- Added Queen, King and Pawns
 
 Upcoming:
-- Pawns, King and Queen
 - Login
 - Rooms
 - Chat
