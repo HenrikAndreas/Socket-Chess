@@ -162,26 +162,30 @@ class Board {
     draw_board() {
         let board = document.getElementById("chessBoard");
         // For white player:
-        for (var i = this.rows-1; i >= 0; i--) {
-            var row = document.createElement('div');
-            row.className = "row";        
-            for (var j = 0; j < this.columns; j++) {
-                var square = this.tiles[i][j].get_square(); 
-                row.appendChild(square);
+        if (player_color == 'white') {
+            for (var i = this.rows-1; i >= 0; i--) {
+                var row = document.createElement('div');
+                row.className = "row";        
+                for (var j = 0; j < this.columns; j++) {
+                    var square = this.tiles[i][j].get_square(); 
+                    row.appendChild(square);
+                }
+                board.appendChild(row);
             }
-            board.appendChild(row);
+        }else {
+            for (var i = 0; i < this.rows; i++) {
+                    var row = document.createElement('div');
+                    row.className = "row";        
+                    for (var j = 0; j < this.columns; j++) {
+                        var square = this.tiles[i][j].get_square(); 
+                        row.appendChild(square);
+                    }
+                    board.appendChild(row);
+                }
         }
         
-        // For black player:
-        // for (var i = 0; i < this.rows; i++) {
-        //     var row = document.createElement('div');
-        //     row.className = "row";        
-        //     for (var j = this.columns-1; j >= 0; j--) {
-        //         var square = this.tiles[i][j].get_square(); 
-        //         row.appendChild(square);
-        //     }
-        //     board.appendChild(row);
-        // }
+
+        
     }
 
 }

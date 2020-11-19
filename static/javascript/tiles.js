@@ -34,11 +34,11 @@ class Tile {
     
     select() {
         // FIX --> if selected tiles is empty, only tiles with piece selectable. If selected tiles has first tile as occupied, then all in range are selectable
-       
         if ((this.board.get_selected_tiles().length == 0) && !this.is_occupied()) {
             return;
         }
         if ((this.board.get_selected_tiles().length == 0) && !(board.player.color == this.piece.color)) {
+
             return;
         }
         

@@ -20,8 +20,20 @@
 
           </div>
 
-          <button onclick="board.set_player('black')">Choose Black</button>
-          <button onclick="board.set_player('white')">Choose White</button>
+          <div id="lobby">
+              <button onclick="setColor('white')" id='white' class="button">Play as White</button>
+              <button onclick="setColor('black')" id='black' class="button">Play as Black</button>
+              <p id="message"></p>
+
+              <div id="users">
+
+              </div>
+              <div id="play">
+                  <button onclick="play_game()" class="button">Play</button>
+    
+              </div>
+          </div>
+
 
 
           <script src="{{ url_for('static', filename='javascript/pawn.js') }}"></script>

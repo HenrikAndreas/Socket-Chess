@@ -89,6 +89,8 @@ class Queen {
         // --- END DIAGONAL MOVES ---
 
         // --- START CROSS MOVES ---
+        // Make list of possible elements and loop over to check if possible
+        // -Sergey's Ide
         for (var i = this.x+1; i < this.board.rows; i++) {
             if (this.board.tiles[i][this.y].is_occupied()) {
                 if (this.board.tiles[i][this.y].piece.color == this.board.player.color) {
