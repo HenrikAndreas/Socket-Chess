@@ -2,7 +2,6 @@ const socket = io.connect("127.0.0.1:80");
 var player_color = null;
 var online_users = {};
 var board;
-socket.emit('connect')
 
 
 function setColor(color) {
@@ -65,7 +64,6 @@ socket.on('add_user', function(users) {
         document.getElementById('users').appendChild(user);
    
     }
-
 });
 
 socket.on('verify_play', function(allow) {
@@ -81,20 +79,26 @@ socket.on('chess_move', function(cors) {
     var to = cors["to"];
     board.online_move(from, to);
 });
-
+socket.on('false_move', function(cors){
+    var from = cors["to"];
+    var to = cors["from"];
+    // Reverting it, because this means the client used JS Console to move a piece illegally
+    board.online_move(from, to);
+});
 socket.on('set_player', function(color) {
     board.online_set_player(color);
 });
 
-socket.on('remove_user', function(id) {
-    delete online_users[id];
+socket.on('remove_user', function(users) {
+    online_users = users;
     document.getElementById('users').innerHTML = "";
 
-    for (var id in online_users) {
+    for (var id in users) {
         var user = document.createElement('p');
-        user.innerHTML = online_users[id];
-        document.getElementById('users').appendChild(user);
-    }   
+        user.innerHTML = id;
+        document.getElementById('users').appendChild(user); 
+    }
+
 });
 
 window.onbeforeunload = function() {

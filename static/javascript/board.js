@@ -74,7 +74,14 @@ class Board {
     }
 
     move(tiles) {
-        socket.emit('chess_move', {'from' : tiles[0].a_cors, 'to' : tiles[1].a_cors});
+        console.log(tiles)
+        if (this.player.turn) {
+            socket.emit('chess_move', {'from' : tiles[0].a_cors, 'to' : tiles[1].a_cors});
+            this.player.turn = false;
+        } else {
+            // Display error message?
+            return;
+        }
         if (tiles[0].get_piece().get_name() == 'pawn') {
             tiles[0].get_piece().first_move = false;
         }
@@ -84,6 +91,7 @@ class Board {
     }
 
     online_move(from, to) {
+        this.player.turn = true;
         var from_tile = this.tiles[from[0]][from[1]];
         var to_tile = this.tiles[to[0]][to[1]];
         to_tile.add_piece(from_tile.get_piece());

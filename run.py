@@ -5,8 +5,10 @@ import os
 app = Flask(__name__)
 app.config["SECRET_KEY"] = os.urandom(32) # 64 random bytes
 socketio = SocketIO(app)
+ip = "127.0.0.1"
+_port = 80
 
-users = {}
+users = {} # {sid : [color, turn, name], ...}
 
 @app.route('/full')
 def full():
@@ -20,10 +22,25 @@ def home():
 
 @socketio.on('chess_move')
 def chess_move(cors):
+    print(cors)
+    if (users[request.sid][1] == False):
+        emit('false_move', cors, broadcast=False, include_self=True)
+        return
+    else:        
+        for user in users:
+            if (user == request.sid):
+                users[user][1] = False
+            else:
+                users[user][1] = True
+        
     emit('chess_move', cors, broadcast=True, include_self=False)
 
 @socketio.on('set_player')
 def set_player(color):
+    if (color == 'white'):
+        users[request.sid].append(True)
+    else:
+        users[request.sid].append(False)
     emit('set_player', color, broadcast=True, include_self=False)
 
 @socketio.on('verify_play')
@@ -34,20 +51,20 @@ def verify_play():
             allow = False
     emit('verify_play', allow, broadcast=True, include_self=True)
 
-
-
 @socketio.on('connect')
 def init_connect():
     users[request.sid] = []
     emit('add_user', users, broadcast=True)
 
 @socketio.on('disconnect_user')
+@socketio.on('disconnect')
 def disconnet_user():
     if (request.sid in users):
         del users[request.sid]
-    emit('remove_user', request.sid)
+    emit('remove_user', users, broadcast=True)
 
-# COLOR CHECKING
+
+# COLOR CHECKING 
 @socketio.on('verify_color')
 def verify_color(color):
     for user in users:
@@ -68,4 +85,4 @@ def de_selection(color):
     users[request.sid].remove(color)
 
 if __name__ == "__main__":
-    socketio.run(app, host="127.0.0.1", port=80, debug=True)
+    socketio.run(app, host=ip, port=_port, debug=True)
