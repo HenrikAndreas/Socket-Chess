@@ -1,4 +1,4 @@
-const socket = io.connect("127.0.0.1:80");
+const socket = io.connect("127.0.0.1:5000");
 var player_color = null;
 var online_users = {};
 var board;

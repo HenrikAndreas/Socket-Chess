@@ -9,7 +9,9 @@ News:
 - Online functionality with Sockets
 - Player based (Black player cannot move white pieces, vice versa)
 - Added Queen, King and Pawns
-- Added Lobby, and max 2 players:
+- Added Lobby, and max 2 players
+- The game is now properly turn based, with a server side verification
+
 Upcoming:
 - Login
 - Rooms

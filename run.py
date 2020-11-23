@@ -3,16 +3,19 @@ from flask_socketio import SocketIO, emit, send
 import os
 
 app = Flask(__name__)
-app.config["SECRET_KEY"] = os.urandom(32) # 64 random bytes
+app.config["SECRET_KEY"] = os.urandom(64) # 64 random bytes
 socketio = SocketIO(app)
 ip = "127.0.0.1"
-_port = 80
+_port = 5000
 
 users = {} # {sid : [color, turn, name], ...}
 
+
 @app.route('/full')
 def full():
-    return "Server is full"
+    if (len(users) < 2):
+        return redirect(url_for('home'))
+    return "<h1>Error: Server is full!</h1>"
 
 @app.route("/")
 def home():
@@ -22,17 +25,15 @@ def home():
 
 @socketio.on('chess_move')
 def chess_move(cors):
-    print(cors)
     if (users[request.sid][1] == False):
-        emit('false_move', cors, broadcast=False, include_self=True)
+        emit('false_move', cors, broadcast=False)
         return
-    else:        
+    else:
         for user in users:
             if (user == request.sid):
                 users[user][1] = False
             else:
                 users[user][1] = True
-        
     emit('chess_move', cors, broadcast=True, include_self=False)
 
 @socketio.on('set_player')
@@ -46,9 +47,13 @@ def set_player(color):
 @socketio.on('verify_play')
 def verify_play():
     allow = True
-    for id in users:
-        if len(users[id]) == 0:
-            allow = False
+    if len(users) < 2:
+        allow = False
+    if allow:
+        for id in users:
+            if len(users[id]) == 0:
+                allow = False
+                break
     emit('verify_play', allow, broadcast=True, include_self=True)
 
 @socketio.on('connect')
