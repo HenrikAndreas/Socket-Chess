@@ -15,6 +15,19 @@ class Board {
         this.player = null;
         this.make_squares();
         this.initialize_pieces();
+
+
+    }
+
+    check_test() {
+        for (var i = 0; i < this.rows; i++) {
+            for (var j = 0; j < this.columns; j++) {
+                if (this.tiles[i][j].is_occupied()) {
+                    //console.log(this.tiles[i][j].piece.name)
+                    // Calculate if any pieces put the king in chech
+                }
+            }
+        }
     }
 
     initialize_pieces() {
@@ -44,7 +57,6 @@ class Board {
         }
     }
     set_player(color) {
-        
         this.player = new Player(color);
         socket.emit('set_player', color);
         if (color == 'white') {
@@ -191,9 +203,5 @@ class Board {
                     board.appendChild(row);
                 }
         }
-        
-
-        
     }
-
 }

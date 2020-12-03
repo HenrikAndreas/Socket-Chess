@@ -1,6 +1,6 @@
 # Socket-Chess
 A 2-player chess game
-Try it out here! http://46.212.98.152
+Try it out here! http://46.212.98.152:5000
 
 News:
 - Created OOP Chess Board with Tile objects

@@ -87,7 +87,7 @@ class Tile {
         if (this.selected) {
             this.board.add_selected_tile(this);
         }
-        // Clears Selected tiles if it's double selected, or if you have selected more than two tiles
+        // Clears Selected tiles if it's doubele selected, or if you have selected more than two tiles
         if (this.board.get_selected_tiles().length == this.board.get_maxSelect()) {
             this.board.move(this.board.get_selected_tiles());
             this.board.remove_selected_tiles();
