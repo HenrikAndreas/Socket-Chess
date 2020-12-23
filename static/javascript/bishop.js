@@ -23,7 +23,12 @@ class Bishop {
         this.y = cors[1];
     }
 
-    get_moves() {
+    get_moves(mode_change) {
+        mode_change = mode_change || false;
+        if (mode_change == true) {
+            var color = this.board.player.color;
+            this.board.player.color = (this.board.player.color == 'black') ? 'white' : 'black';
+        }
         var moves = [];
      
         var i = this.y + 1;
@@ -88,8 +93,9 @@ class Bishop {
         }
 
     
-
-        return moves;
+        if (mode_change) {
+            this.board.player.color = color;
+        }        return moves;
     }
 
 

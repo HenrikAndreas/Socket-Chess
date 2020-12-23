@@ -23,7 +23,9 @@ class Knight {
         this.x = cors[0];
         this.y = cors[1];
     }
-    get_moves() {
+    get_moves(mode_change) {
+        mode_change = mode_change || false;
+
         var moves = [];
         
         if(this.x-1 >= 0) {

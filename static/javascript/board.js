@@ -15,19 +15,28 @@ class Board {
         this.player = null;
         this.make_squares();
         this.initialize_pieces();
-
-
     }
 
-    check_test() {
+    is_check() {
+        var moves = [];
         for (var i = 0; i < this.rows; i++) {
             for (var j = 0; j < this.columns; j++) {
-                if (this.tiles[i][j].is_occupied()) {
-                    //console.log(this.tiles[i][j].piece.name)
-                    // Calculate if any pieces put the king in chech
+                if (this.tiles[i][j].is_occupied() && this.tiles[i][j].piece.color != this.player.color) {
+                    moves.push(this.tiles[i][j].piece.get_moves(true));
                 }
             }
         }
+        for (var i = 0; i < moves.length; i++) {
+            for (var j = 0; j < moves[i].length; j++) {
+                var move = moves[i][j];
+                if (this.tiles[move[0]][move[1]].is_occupied() && this.tiles[move[0]][move[1]].piece.name == 'king' ){
+                    if (this.tiles[move[0]][move[1]].piece.color == this.player.color) {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
     }
 
     initialize_pieces() {
@@ -86,12 +95,11 @@ class Board {
     }
 
     move(tiles) {
-        console.log(tiles)
+        
+
         if (this.player.turn) {
-            socket.emit('chess_move', {'from' : tiles[0].a_cors, 'to' : tiles[1].a_cors});
             this.player.turn = false;
         } else {
-            // Display error message?
             return;
         }
         if (tiles[0].get_piece().get_name() == 'pawn') {
@@ -100,6 +108,22 @@ class Board {
         tiles[1].add_piece(tiles[0].get_piece());
         tiles[1].get_piece().set_cors(tiles[1].a_cors);
         tiles[0].remove_piece();
+
+
+        if (this.is_check()) {
+            this.player.turn = true;
+            if (tiles[1].get_piece().get_name() == 'pawn') {
+                tiles[1].get_piece().first_move = true;
+            }
+            tiles[0].add_piece(tiles[1].get_piece());
+            tiles[0].get_piece().set_cors(tiles[0].a_cors);
+            tiles[1].remove_piece();
+
+        } else {
+            socket.emit('chess_move', {'from' : tiles[0].a_cors, 'to' : tiles[1].a_cors});
+        }
+
+
     }
 
     online_move(from, to) {

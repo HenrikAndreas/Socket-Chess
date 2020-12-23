@@ -22,7 +22,9 @@ class King {
         this.y = cors[1];
     }
 
-    get_moves() {
+    get_moves(mode_change) {
+        mode_change = mode_change || false;
+
         var moves = [];
        
         for (var i = -1; i < 2; i++) {
@@ -39,7 +41,6 @@ class King {
                 }
             }
         }
-
         return moves;
     }
 

@@ -10,15 +10,11 @@ _port = 5000
 
 users = {} # {sid : [color, turn, name], ...}
 
-Secret_message = "Yo listen up, here's a story \
-    about a blue man who lives in a blue world"
-
 @app.route('/full')
 def full():
     if (len(users) < 2):
         return redirect(url_for('home'))
-    return "<h1>Error: Server is full!</h1>"
-
+    return "<h1>Error: Server is full!</h1>";
 
 @app.route("/")
 def home():
