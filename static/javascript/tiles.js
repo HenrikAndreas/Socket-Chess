@@ -50,7 +50,7 @@ class Tile {
             allow_move = true;
 
         }
-        // Thanks Joe Bayer
+
         if (this.board.get_selected_tiles().length == 1 && this.piece != null && this.piece.color == this.board.get_selected_tiles()[0].piece.color) {
             illegal_move = true;
         }

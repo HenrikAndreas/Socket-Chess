@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, redirect, url_for
-from flask_socketio import SocketIO, emit, send
+from flask_socketio import SocketIO, emit, send 
 import os
 
 app = Flask(__name__)
@@ -28,7 +28,7 @@ def chess_move(cors):
         emit('false_move', cors, broadcast=False)
         return
     else:
-        for user in users:
+        for user in users: 
             if (user == request.sid):
                 users[user][1] = False
             else:

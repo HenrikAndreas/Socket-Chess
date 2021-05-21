@@ -17,6 +17,16 @@ class Board {
         this.initialize_pieces();
     }
 
+    is_checkmate() {
+
+        var moves = [];
+        // Make a move
+        // Does move put me in check?
+        // If not, add move to list
+        // Revert
+        
+    }
+
     is_check() {
         var moves = [];
         for (var i = 0; i < this.rows; i++) {
@@ -26,6 +36,7 @@ class Board {
                 }
             }
         }
+
         for (var i = 0; i < moves.length; i++) {
             for (var j = 0; j < moves[i].length; j++) {
                 var move = moves[i][j];
@@ -95,7 +106,7 @@ class Board {
     }
 
     move(tiles) {
-        
+
 
         if (this.player.turn) {
             this.player.turn = false;
@@ -216,7 +227,7 @@ class Board {
                 }
                 board.appendChild(row);
             }
-        }else {
+        } else {
             for (var i = 0; i < this.rows; i++) {
                     var row = document.createElement('div');
                     row.className = "row";        
